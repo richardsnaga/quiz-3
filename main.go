@@ -64,5 +64,11 @@ func main() {
 	router.PUT("/categories/:id", controllers.UpdateCategory)
 	router.DELETE("/categories/:id", controllers.DeleteCategory)
 
+	// book
+	router.GET("/books", controllers.GetAllBook)
+	router.POST("/books", controllers.InsertBook)
+	router.PUT("/books/:id", controllers.UpdateBook)
+	router.DELETE("/books/:id", controllers.DeleteBook)
+
 	router.Run("localhost:8090")
 }

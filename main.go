@@ -51,6 +51,11 @@ func main() {
 
 	router := gin.Default()
 
+	authMiddleware := router.Group("/admin", gin.BasicAuth(gin.Accounts{
+		"admin":  "password",
+		"editor": "secret",
+	}))
+
 	// Route Bangun Datar
 	router.GET("/bangun-datar/segitiga-sama-sisi", controllers.Segitiga)
 	router.GET("/bangun-datar/jajar-genjang", controllers.JajarGenjang)
@@ -60,15 +65,16 @@ func main() {
 
 	// category
 	router.GET("/categories", controllers.GetAllCategory)
-	router.POST("/categories", controllers.InsertCategory)
-	router.PUT("/categories/:id", controllers.UpdateCategory)
-	router.DELETE("/categories/:id", controllers.DeleteCategory)
+	authMiddleware.POST("/categories", controllers.InsertCategory)
+	authMiddleware.PUT("/categories/:id", controllers.UpdateCategory)
+	authMiddleware.DELETE("/categories/:id", controllers.DeleteCategory)
 
 	// book
 	router.GET("/books", controllers.GetAllBook)
-	router.POST("/books", controllers.InsertBook)
-	router.PUT("/books/:id", controllers.UpdateBook)
-	router.DELETE("/books/:id", controllers.DeleteBook)
+	authMiddleware.POST("/books", controllers.InsertBook)
+	authMiddleware.PUT("/books/:id", controllers.UpdateBook)
+	authMiddleware.DELETE("/books/:id", controllers.DeleteBook)
+	router.GET("/categories/:id/books", controllers.GetBookCategory)
 
 	router.Run("localhost:8090")
 }

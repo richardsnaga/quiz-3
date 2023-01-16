@@ -154,3 +154,24 @@ func DeleteBook(c *gin.Context) {
 		"result": "Success Delete book",
 	})
 }
+
+func GetBookCategory(c *gin.Context) {
+	var (
+		result gin.H
+	)
+
+	id, _ := strconv.Atoi(c.Param("id"))
+	book, err := repository.GetBookCategory(database.DbConnection,id)
+
+	if err != nil {
+		result = gin.H{
+			"result": err,
+		}
+	} else {
+		result = gin.H{
+			"result": book,
+		}
+	}
+
+	c.JSON(http.StatusOK, result)
+}

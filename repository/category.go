@@ -44,3 +44,11 @@ func UpdateCategory(db *sql.DB, category structs.Category) (err error) {
 
 	return errs.Err()
 }
+
+func DeleteCategory(db *sql.DB, category structs.Category) (err error) {
+	sql := `DELETE FROM categories WHERE id = $1`
+
+	errs := db.QueryRow(sql, category.ID)
+
+	return errs.Err()
+}

@@ -62,6 +62,7 @@ func main() {
 	router.GET("/categories", controllers.GetAllCategory)
 	router.POST("/categories", controllers.InsertCategory)
 	router.PUT("/categories/:id", controllers.UpdateCategory)
+	router.DELETE("/categories/:id", controllers.DeleteCategory)
 
 	router.Run("localhost:8090")
 }

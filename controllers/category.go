@@ -67,6 +67,24 @@ func UpdateCategory(c *gin.Context) {
 	}
 
 	c.JSON(http.StatusOK, gin.H{
-		"result": "Success Update category",
+		"result": "Success Update Category",
+	})
+}
+
+func DeleteCategory(c *gin.Context) {
+	var category structs.Category
+
+	id, err := strconv.Atoi(c.Param("id"))
+
+	category.ID = int(id)
+
+	err = repository.DeleteCategory(database.DbConnection, category)
+
+	if err != nil {
+		panic(err)
+	}
+
+	c.JSON(http.StatusOK, gin.H{
+		"result": "Success Delete Category",
 	})
 }

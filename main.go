@@ -31,7 +31,11 @@ func main() {
 		panic(err)
 	}
 	psqlInfo := fmt.Sprintf("host=%s port=%d user=%s password=%s dbname=%s sslmode=disable",
-		os.Getenv("DB_HOST"), port, os.Getenv("DB_USER"), os.Getenv("DB_PASSWORD"), os.Getenv("DB_NAME"))
+		os.Getenv("PGHOST"),
+		port,
+		os.Getenv("PGUSER"),
+		os.Getenv("PGPASSWORD"),
+		os.Getenv("PGDATABASE"))
 
 	DB, err = sql.Open("postgres", psqlInfo)
 	if err != nil {
@@ -76,5 +80,5 @@ func main() {
 	authMiddleware.DELETE("/books/:id", controllers.DeleteBook)
 	router.GET("/categories/:id/books", controllers.GetBookCategory)
 
-	router.Run("localhost:8090")
+	router.Run(":" + os.Getenv("PORT"))
 }

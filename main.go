@@ -26,7 +26,7 @@ func main() {
 		fmt.Println("Success read file environment")
 	}
 
-	port, err := strconv.Atoi(os.Getenv("DB_PORT"))
+	port, err := strconv.Atoi(os.Getenv("PGPORT"))
 	if err != nil {
 		panic(err)
 	}
